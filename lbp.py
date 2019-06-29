@@ -35,7 +35,7 @@ def lbp_calculated_pixel(img, x, y):
     for i in range(len(val_ar)):
         val += val_ar[i] * power_val[i]
     return val    
-print('leu')
+
 def show_output(output_list):
     output_list_len = len(output_list)
     figure = plt.figure()
@@ -68,7 +68,9 @@ def show_output(output_list):
     plt.show()
     
 def main():
-    image_file = 'lenna.jpg'
+    print('oi')
+    image_file = 'eu_linkedin.jpg'
+     
     img_bgr = cv2.imread(image_file)
     height, width, channel = img_bgr.shape
     img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
@@ -112,4 +114,9 @@ def main():
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     print("LBP Program is finished")
+
+
+if __name__ == '__main__':
+    main()
+
 
