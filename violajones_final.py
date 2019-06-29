@@ -9,7 +9,7 @@ from pathlib import Path
 faceCascade = cv.CascadeClassifier('haarcascades\haarcascade_frontalface_default.xml')
 # Read image from your local file system
 os.mkdir('./basedados')
-for i in range(1,51):
+for i in range(1,54):
     
     # ele vai criar uma pasta e vai entrar em cada imagem e cortar
     if len(str(i)) == 1:
@@ -37,7 +37,7 @@ for i in range(1,51):
             # Draw rectangle around the face
             
             sub_face = original_image[y:y+h, x:x+w]
-            sub_face = cv.resize(sub_face,(185,185))
+            sub_face = cv.resize(sub_face,(50,50))
             
             cv.imwrite('./basedados/'+numero_pasta+'/'+nome_imagem,sub_face)
             contador= contador+1

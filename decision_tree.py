@@ -38,27 +38,8 @@ for train, test in kf.split(features_x):
     X_train, X_test, y_train, y_test = features_x[train], features_x[test], features_y[train], features_y[test]
     
     acuracia=[]
-    if(k==1):
-
-        for i in range(1,10):
-            model = tree.DecisionTreeClassifier()
-            model = model.fit(X_train,y_train)
-    
-            pred = model.predict(X_test)
-            acuracia.append(accuracy_score(y_test, pred))
-        #print("Partição: %s\n" + str(k))
-        #print(acuracia)
-        plt.figure(figsize=(12, 6))  
-        plt.plot(range(1, 10), acuracia, color='red', linestyle='dashed', marker='o',  
-                 markerfacecolor='blue', markersize=10)
-        plt.title('Error Rate K Value')  
-        plt.xlabel('K Value')  
-        plt.ylabel('Mean Error')
-        plt.show()
     model = tree.DecisionTreeClassifier()
     model = model.fit(X_train,y_train)
-    pred = model.predict(X_test)
-    acuracia.append(accuracy_score(y_test, pred))
     pred = model.predict(X_test)
     acuracia_total.append(accuracy_score(y_test, pred))
     k=k+1
