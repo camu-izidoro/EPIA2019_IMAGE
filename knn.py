@@ -26,12 +26,12 @@ def DistanciaEuclidiana(tupla1,tupla2,tamanho):
     return math.sqrt(distancia)
 
 
-def getNeighbors(trainingSet, testInstance, k):
+def getNeighbors(data_train, labels_train,testInstance,testlabel, k):
 	distances = []
 	length = len(testInstance)-1
-	for x in range(len(trainingSet)):
-		dist = DistanciaEuclidiana(testInstance, trainingSet[x], length)
-		distances.append((trainingSet[x], dist))
+	for x in range(len(data_train)):
+		dist = DistanciaEuclidiana(testInstance, data_train[x], length)
+		distances.append((labels_train[x], dist))
 	distances.sort(key=operator.itemgetter(1))
 	neighbors = []
 	for x in range(k):
@@ -43,20 +43,20 @@ def getNeighbors(trainingSet, testInstance, k):
 def getResponse(neighbors):
 	classVotes = {}
 	for x in range(len(neighbors)):
-		response = neighbors[x][-1]
+		response = neighbors[x]
 		if response in classVotes:
 			classVotes[response] += 1
 		else:
 			classVotes[response] = 1
-	sortedVotes = sorted(classVotes.iteritems(), key=operator.itemgetter(1), reverse=True)
+	sortedVotes = sorted(classVotes.items(), key=operator.itemgetter(1), reverse=True)
 	return sortedVotes[0][0]
  
-def getAccuracy(testSet, predictions):
+def getAccuracy(label_test, predictions):
 	correct = 0
-	for x in range(len(testSet)):
-		if testSet[x][-1] == predictions[x]:
+	for x in range(len(label_test)):
+		if label_test[x] == predictions[x]:
 			correct += 1
-	return (correct/float(len(testSet))) * 100.0
+	return (correct/float(len(label_test))) * 100.0
 	
 
 with open("train.pkl", "rb") as f:
@@ -75,9 +75,9 @@ for train, test in kf.split(features_x):
     predictions=[]
     k = 3
     for x in range(len(X_test)):
-        neighbors = getNeighbors(X_train, X_test[x], k)
+        neighbors = getNeighbors(X_train,y_train, X_test[x],y_test[x], k)
         result = getResponse(neighbors)
         predictions.append(result)
-        print('> predicted=' + repr(result) + ', actual=' + repr(X_test[x][-1]))
-        accuracy = getAccuracy(X_test, predictions)
+        print('> predicted=' + repr(result) + ', actual=' + repr(y_test[x]))
+    accuracy = getAccuracy(y_test, predictions)
     print('Accuracy: ' + repr(accuracy) + '%')
