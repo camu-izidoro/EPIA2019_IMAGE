@@ -1,3 +1,4 @@
+#%%
 import math
 import operator
 from sklearn import tree
@@ -80,4 +81,16 @@ for train, test in kf.split(features_x):
         predictions.append(result)
         print('> predicted=' + repr(result) + ', actual=' + repr(y_test[x]))
     accuracy = getAccuracy(y_test, predictions)
-    print('Accuracy: ' + repr(accuracy) + '%')
+    print('Accuracy: ' + repr(accuracy) + '%')  
+    acuracia_total.append(accuracy) 
+
+print('Total Accuracy: ' + repr(acuracia_total))
+plt.figure(figsize=(12, 6))  
+plt.plot(range(1, 6), acuracia_total, color='red', linestyle='dashed', marker='o',  
+                 markerfacecolor='blue', markersize=10)
+plt.title('Acuracia Geral')  
+plt.xlabel('Partição')  
+plt.ylabel('Acurácia')
+plt.show()
+
+#%%
