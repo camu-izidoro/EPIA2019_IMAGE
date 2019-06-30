@@ -151,7 +151,7 @@ dJdA = dJdA/N;
  
  dJdZ = zeros(N,h);
  for n=1:N
-     for i=1:h
+     for i=1:ha
          for k=1:ns,
              dJdZ(n,i)=dJdZ(n,i)+erro(n,k)*(1-Y(n,k))*Y(n,k)*B(k,i);
          end
